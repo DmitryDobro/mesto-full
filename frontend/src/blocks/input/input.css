@@ -1,0 +1,10 @@
+.input {
+  background: none;
+  background-color: none;
+  border: none;
+}
+.input:focus,
+.input:active {
+  outline: none;
+  background: none;
+}
