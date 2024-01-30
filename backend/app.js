@@ -16,10 +16,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cookieParser());
-// app.use(cors({
-//   origin: ['http://localhost:5173', 'https://dobryi.nomoredomainsmonster.ru', 'https://api.dobryi.nomoredomainsmonster.ru', 'http://dobryi.nomoredomainsmonster.ru', 'http://api.dobryi.nomoredomainsmonster.ru', 'https://api.dobryi.nomoredomainsmonster.ru/signin'],
-//   credentials: true,
-// }));
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://dobryi.nomoredomainsmonster.ru', 'https://api.dobryi.nomoredomainsmonster.ru', 'http://dobryi.nomoredomainsmonster.ru', 'http://api.dobryi.nomoredomainsmonster.ru', 'https://api.dobryi.nomoredomainsmonster.ru/signin'],
+  credentials: true,
+}));
 // app.use(requestLogger);
 app.get('/crash-test', () => {
   setTimeout(() => {
