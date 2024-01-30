@@ -16,7 +16,9 @@ const login = async (req, res, next) => {
         { _id: user._id },
         'some-secret-key',
       );
-      res.cookie('jwt', token, { maxAge: 3600000, httpOnly: true, sameSite: true }).send(user);
+      res.cookie('jwt', token, { maxAge: 3600000, httpOnly: true, sameSite: true }).send({ token });
+      // console.log(token);
+      // res.status(200).send({ token });
     } else {
       throw new AuthError('Неправильные почта или пароль');
     }
@@ -34,7 +36,8 @@ const getUsers = async (req, res, next) => {
 };
 const getUserInfo = async (req, res, next) => {
   try {
-    const users = await User.findById(req.user.userId).orFail(() => new NotFoundError('Польователь по данному ID не найден'));
+    console.log(req.user);
+    const users = await User.findById(req.user._id).orFail(() => new NotFoundError('Польователь по данному ID не найден'));
     res.status(200).send(users);
   } catch (error) {
     next(error);
@@ -56,7 +59,7 @@ const getUserById = async (req, res, next) => {
 const createUser = async (req, res, next) => {
   try {
     const {
-      name, about, avatar, email, password,
+      name, about, avatar, password, email,
     } = req.body;
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({

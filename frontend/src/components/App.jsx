@@ -43,12 +43,16 @@ function App() {
     if (loggedIn) {
       Promise.all([api.getUserInfo(), api.getCards()])
         .then(([userData, cardsData]) => {
-          setCurrentUser(userData);
+          console.log(cardsData);
+          // let newCards = cardsData.reverse()
+          // setCards(newCards);
           setCards(cardsData);
+          setCurrentUser(userData);
+         
         })
         .catch(err => console.log(err));
     }
-  }, []);
+  }, [loggedIn]);
   // проверяем на наличие токена
   React.useEffect(() => {
     checkToken();
@@ -82,7 +86,7 @@ function App() {
   function handleCardLike(likes, cardId) {
     //  Проверяем, есть ли уже лайк на этой карточке
     const isLiked = likes.some(like => {
-      return like._id === currentUser._id;
+      return like === currentUser._id;
     });
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
@@ -113,7 +117,6 @@ function App() {
     api
       .setUserAvatar(data)
       .then(res => {
-        console.log(res);
         setCurrentUser(res);
       })
       .catch(err => console.log(err));
@@ -148,8 +151,7 @@ function App() {
         .getDataUser(jwt)
         .then(res => {
           setLoggedIn(true);
-          console.log(res);
-          setEmail(res.data.email);
+          setEmail(res.email);
           navigate('/');
         })
         .catch(err => console.log(err));
@@ -160,12 +162,12 @@ function App() {
     auth
       .authorize(password, email)
       .then(res => {
-        localStorage.setItem('jwt', res.token);
+        console.log(res);
+        // localStorage.setItem('jwt', res.token);
         localStorage.setItem('loggedIn', true);
         setLoggedIn(true);
         setEmail(email);
         navigate('/');
-        console.log(email);
       })
       .catch(err => {
         onRegisterError();

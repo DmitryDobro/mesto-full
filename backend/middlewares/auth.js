@@ -5,6 +5,7 @@ const auth = (req, res, next) => {
   let payload;
   try {
     const token = req.headers.cookie;
+    // const token = req.headers.authorization;
     if (!token) {
       throw new AuthError('Неправильные почта или пароль');
     }

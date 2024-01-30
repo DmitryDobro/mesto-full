@@ -2,14 +2,14 @@ import React from 'react';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 function Card({onImagePopup, onCardLike, onCardDelete, link, name, likes, cardOwner, cardId}) {
+  
   const currentUser = React.useContext(CurrentUserContext);
 
   // Определяем, являемся ли мы владельцем текущей карточки
-  const isOwn = cardOwner._id === currentUser._id;
-  const isLiked = likes.some(like => like._id === currentUser._id);
+  const isOwn = cardOwner === currentUser._id;
+  const isLiked = likes.some(like => like === currentUser._id);
   const handleLikeClick = () => onCardLike(likes, cardId);
   const handleCardDelete = () => onCardDelete(cardId);
-
   return (
     <div className="cards__card">
       {isOwn && <button onClick={handleCardDelete} type="button" className="cards__delete btn"></button>}
