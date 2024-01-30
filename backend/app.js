@@ -9,12 +9,12 @@ const cors = require('cors');
 const router = require('./routers/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-// const { PORT = 3000 } = process.env;
-const { PORT, MONGO_DB } = require('./config');
+const { PORT = 3000 } = process.env;
 
+console.log(PORT);
 const app = express();
 
-mongoose.connect(MONGO_DB);
+mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 // app.use(express.json());
 
 app.use(bodyParser.json());
