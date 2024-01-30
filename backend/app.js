@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-// const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const cors = require('cors');
 const router = require('./routers/index');
@@ -13,9 +13,9 @@ const app = express();
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 // app.use(express.json());
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(cors({
   origin: ['http://localhost:5173', 'https://dobryi.nomoredomainsmonster.ru', 'https://api.dobryi.nomoredomainsmonster.ru', 'http://dobryi.nomoredomainsmonster.ru', 'http://api.dobryi.nomoredomainsmonster.ru', 'https://api.dobryi.nomoredomainsmonster.ru/signin'],
   credentials: true,
